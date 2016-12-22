@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+	http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+
+	<mapping map-id="INCLUDE_MOVEMENTS">
+		<class-a>com.company.ebanking.common.dto.account.AccountDTO</class-a>
+		<class-b>com.company.ebanking.domain.account.Account</class-b>
+	</mapping>
+
+	<mapping>
+		<class-a>com.company.ebanking.common.dto.account.AccountDTO</class-a>
+		<class-b>com.company.ebanking.domain.account.Account</class-b>
+		<field-exclude>
+			<a>movements</a>
+			<b>movements</b>
+		</field-exclude>
+	</mapping>
+
+</mappings>
+
+
+
+

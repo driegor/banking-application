@@ -1,17 +1,16 @@
 package com.company.ebanking.service;
 
-import com.company.ebanking.common.dto.account.BalanceDTO;
+import com.company.ebanking.common.dto.account.AccountDTO;
 import com.company.ebanking.common.dto.account.MovementDTO;
-import com.company.ebanking.common.dto.account.StatementDTO;
+import com.company.ebanking.common.exception.AccountException;
 
 public interface IAccountService {
 
-    BalanceDTO getBalance(String activeUser);
+    AccountDTO deposit(MovementDTO movement, String userName) throws AccountException;
 
-    BalanceDTO deposit(MovementDTO movement, String name);
+    AccountDTO withdraw(MovementDTO movement, String userName) throws AccountException;
 
-    BalanceDTO withdraw(MovementDTO movement, String name);
+    AccountDTO getStatement(String userName) throws AccountException;
 
-    StatementDTO getStatement(String name);
-
+    AccountDTO getBalance(String userName) throws AccountException;
 }

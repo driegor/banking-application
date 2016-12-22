@@ -22,12 +22,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.company.ebanking.common.dto.account.BalanceDTO;
-import com.company.ebanking.common.dto.account.BalanceDTO.BalanceDTOBuilder;
+import com.company.ebanking.common.dto.account.AccountDTO;
+import com.company.ebanking.common.dto.account.AccountDTO.AccountDTOBuilder;
 import com.company.ebanking.common.dto.account.MovementDTO;
 import com.company.ebanking.common.dto.account.MovementDTO.MovementDTOBuilder;
-import com.company.ebanking.common.dto.account.StatementDTO;
-import com.company.ebanking.common.dto.account.StatementDTO.StatementDTOBuilder;
 import com.company.ebanking.common.enums.MovementType;
 import com.company.ebanking.common.utils.MapperUtils;
 import com.company.ebanking.rest.controller.account.AccountController;
@@ -60,7 +58,7 @@ public class AccountControllerTest extends MvcControllerBaseTest {
 		return name;
 	    }
 	};
-	BalanceDTO balance = BalanceDTOBuilder.builder().ammount(ammount).build();
+	AccountDTO balance = AccountDTOBuilder.builder().ammount(ammount).build();
 	Mockito.when(accountService.getBalance(name)).thenReturn(balance);
 
 	mockMvc.perform(MockMvcRequestBuilders.get("/api/account/balance").principal(principal)).andDo(print())
@@ -82,19 +80,18 @@ public class AccountControllerTest extends MvcControllerBaseTest {
 		return name;
 	    }
 	};
-	BalanceDTO balance = BalanceDTOBuilder.builder().ammount(ammount).build();
 
 	List<MovementDTO> movements = IntStream.range(1, max).mapToObj(i -> MovementDTOBuilder.builder()
 		.concept("Deposit " + i).date(new Date()).quantity(i).type(MovementType.DEPOSIT).build())
 		.collect(Collectors.toList());
 
-	StatementDTO statement = StatementDTOBuilder.builder().balance(balance).movements(movements).build();
+	AccountDTO account = AccountDTOBuilder.builder().ammount(ammount).movements(movements).build();
 
-	Mockito.when(accountService.getStatement(name)).thenReturn(statement);
+	Mockito.when(accountService.getStatement(name)).thenReturn(account);
 
 	mockMvc.perform(MockMvcRequestBuilders.get("/api/account/statement").principal(principal)).andDo(print())
 		.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(content().contentType(contentType))
-		.andExpect(content().string(MapperUtils.toJsonAsTring(statement)));
+		.andExpect(content().string(MapperUtils.toJsonAsTring(account)));
     }
 
     @Test
@@ -114,7 +111,7 @@ public class AccountControllerTest extends MvcControllerBaseTest {
 	};
 
 	// @formatter:off
-	BalanceDTO balance = BalanceDTOBuilder.builder().ammount(ammount).build();
+	AccountDTO balance = AccountDTOBuilder.builder().ammount(ammount).build();
 	MovementDTO movement = MovementDTOBuilder.builder()
 		.date(new Date())
 		.concept(concept)
@@ -241,7 +238,7 @@ public class AccountControllerTest extends MvcControllerBaseTest {
 	};
 
 	// @formatter:off
-	BalanceDTO balance = BalanceDTOBuilder.builder().ammount(ammount).build();
+	AccountDTO balance = AccountDTOBuilder.builder().ammount(ammount).build();
 	MovementDTO movement = MovementDTOBuilder.builder()
 		.date(new Date())
 		.concept(concept)
