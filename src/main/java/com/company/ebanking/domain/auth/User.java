@@ -1,10 +1,17 @@
 package com.company.ebanking.domain.auth;
 
-import com.company.ebanking.domain.BasicEntity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-public class User extends BasicEntity {
+@Entity
+public class User {
 
+    @Id
+    @Column(name = "USERNAME")
     String userName;
+
+    @Column(name = "PASSWORD")
     String password;
 
     protected User() {

@@ -5,6 +5,6 @@ import com.company.ebanking.common.enums.MovementType;
 public class Withdraw extends Movement {
 
     public Withdraw(Movement movement) {
-	super(MovementType.WITHDRAW, movement.getConcept(), movement.getQuantity(), movement.getDate());
+	super(MovementType.WITHDRAW, movement.getConcept(), movement.getQuantity());
     }
 }

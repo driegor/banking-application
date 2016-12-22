@@ -68,7 +68,7 @@ public class AccountService implements IAccountService {
 	    throw new AccountException(String.format(DOESNT_EXIST_USER_ACCOUNT_MESSAGE, userName));
 	}
 
-	if (MovementType.WITHDRAW.equals(movement.getType()) && movement.getQuantity() > account.getAmmount()) {
+	if (MovementType.WITHDRAW.equals(movement.getType()) && movement.getQuantity() > account.getAmount()) {
 	    throw new AccountException(String.format(NOT_ENOUGH_MONEY_MESSAGE, movement.getQuantity()));
 	}
 

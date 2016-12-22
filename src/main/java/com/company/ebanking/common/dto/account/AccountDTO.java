@@ -6,16 +6,16 @@ import com.company.ebanking.common.dto.BasicDTO;
 
 public class AccountDTO extends BasicDTO {
 
-    int ammount;
+    int amount;
 
     List<MovementDTO> movements;
 
-    public int getAmmount() {
-	return ammount;
+    public int getAmount() {
+	return amount;
     }
 
-    public void setAmmount(int ammount) {
-	this.ammount = ammount;
+    public void setAmount(int amount) {
+	this.amount = amount;
     }
 
     public List<MovementDTO> getMovements() {
@@ -38,8 +38,8 @@ public class AccountDTO extends BasicDTO {
 	    return new AccountDTOBuilder();
 	}
 
-	public AccountDTOBuilder ammount(int ammount) {
-	    instance.setAmmount(ammount);
+	public AccountDTOBuilder amount(int amount) {
+	    instance.setAmount(amount);
 	    return this;
 	}
 

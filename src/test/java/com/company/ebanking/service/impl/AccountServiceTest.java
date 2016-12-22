@@ -53,17 +53,16 @@ public class AccountServiceTest extends MockitoBaseTest {
 	int max = 5;
 
 	List<Movement> movements = IntStream.range(0, max)
-		.mapToObj(i -> new Movement(MovementType.DEPOSIT, "Deposit " + i, i, new Date()))
-		.collect(Collectors.toList());
-	int ammount = 100;
+		.mapToObj(i -> new Movement(MovementType.DEPOSIT, "Deposit " + i, i)).collect(Collectors.toList());
+	int amount = 100;
 	User user = new User(userName, password);
-	Account account = new Account(user, ammount, movements);
+	Account account = new Account(user, amount, movements);
 
 	when(accountRepository.findByUserUserName(userName)).thenReturn(account);
 
 	AccountDTO accountDTO = accountService.getBalance(userName);
 	assertNotNull(accountDTO);
-	assertEquals(ammount, account.getAmmount());
+	assertEquals(amount, account.getAmount());
 	assertNull(accountDTO.getMovements());
     }
 
@@ -82,17 +81,16 @@ public class AccountServiceTest extends MockitoBaseTest {
 	int max = 5;
 
 	List<Movement> movements = IntStream.range(0, max)
-		.mapToObj(i -> new Movement(MovementType.DEPOSIT, "Deposit " + i, i, new Date()))
-		.collect(Collectors.toList());
-	int ammount = 100;
+		.mapToObj(i -> new Movement(MovementType.DEPOSIT, "Deposit " + i, i)).collect(Collectors.toList());
+	int amount = 100;
 	User user = new User(userName, password);
-	Account account = new Account(user, ammount, movements);
+	Account account = new Account(user, amount, movements);
 
 	when(accountRepository.findByUserUserName(userName)).thenReturn(account);
 
 	AccountDTO accountDTO = accountService.getStatement(userName);
 	assertNotNull(accountDTO);
-	assertEquals(ammount, account.getAmmount());
+	assertEquals(amount, account.getAmount());
 	assertNotNull(accountDTO.getMovements());
 	assertEquals(max, account.getMovements().size());
     }
@@ -112,21 +110,20 @@ public class AccountServiceTest extends MockitoBaseTest {
 	int max = 5;
 
 	List<Movement> movements = IntStream.range(0, max)
-		.mapToObj(i -> new Movement(MovementType.DEPOSIT, "Deposit " + i, i, new Date()))
-		.collect(Collectors.toList());
+		.mapToObj(i -> new Movement(MovementType.DEPOSIT, "Deposit " + i, i)).collect(Collectors.toList());
 
 	MovementDTO movementDTO = MovementDTOBuilder.builder().type(MovementType.DEPOSIT).concept("Deposit ")
 		.quantity(500).date(new Date()).build();
-	int ammount = 100;
+	int amount = 100;
 	User user = new User(userName, password);
-	Account account = new Account(user, ammount, movements);
+	Account account = new Account(user, amount, movements);
 
 	when(accountRepository.findByUserUserName(userName)).thenReturn(account);
 	when(accountRepository.save(any(Account.class))).thenReturn(account);
 
 	AccountDTO accountDTO = accountService.deposit(movementDTO, userName);
 	assertNotNull(accountDTO);
-	assertEquals(ammount, account.getAmmount());
+	assertEquals(amount, account.getAmount());
 	assertNull(accountDTO.getMovements());
     }
 
@@ -137,21 +134,20 @@ public class AccountServiceTest extends MockitoBaseTest {
 	int max = 5;
 
 	List<Movement> movements = IntStream.range(0, max)
-		.mapToObj(i -> new Movement(MovementType.DEPOSIT, "Deposit " + i, i, new Date()))
-		.collect(Collectors.toList());
+		.mapToObj(i -> new Movement(MovementType.DEPOSIT, "Deposit " + i, i)).collect(Collectors.toList());
 
 	MovementDTO movementDTO = MovementDTOBuilder.builder().type(MovementType.DEPOSIT).concept("Deposit ")
 		.quantity(500).date(new Date()).build();
-	int ammount = 1000;
+	int amount = 1000;
 	User user = new User(userName, password);
-	Account account = new Account(user, ammount, movements);
+	Account account = new Account(user, amount, movements);
 
 	when(accountRepository.findByUserUserName(userName)).thenReturn(account);
 	when(accountRepository.save(any(Account.class))).thenReturn(account);
 
 	AccountDTO accountDTO = accountService.withdraw(movementDTO, userName);
 	assertNotNull(accountDTO);
-	assertEquals(ammount, account.getAmmount());
+	assertEquals(amount, account.getAmount());
 	assertNull(accountDTO.getMovements());
     }
 
@@ -162,14 +158,13 @@ public class AccountServiceTest extends MockitoBaseTest {
 	int max = 5;
 
 	List<Movement> movements = IntStream.range(0, max)
-		.mapToObj(i -> new Movement(MovementType.DEPOSIT, "Deposit " + i, i, new Date()))
-		.collect(Collectors.toList());
+		.mapToObj(i -> new Movement(MovementType.DEPOSIT, "Deposit " + i, i)).collect(Collectors.toList());
 
 	MovementDTO movementDTO = MovementDTOBuilder.builder().type(MovementType.DEPOSIT).concept("Deposit ")
 		.quantity(500).date(new Date()).build();
-	int ammount = 100;
+	int amount = 100;
 	User user = new User(userName, password);
-	Account account = new Account(user, ammount, movements);
+	Account account = new Account(user, amount, movements);
 
 	when(accountRepository.findByUserUserName(userName)).thenReturn(account);
 

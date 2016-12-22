@@ -48,7 +48,7 @@ public class AccountControllerTest extends MvcControllerBaseTest {
     @Test
     public void testGetBalance() throws Exception {
 
-	int ammount = 10000;
+	int amount = 10000;
 	String name = "dummyName";
 
 	Principal principal = new Principal() {
@@ -58,7 +58,7 @@ public class AccountControllerTest extends MvcControllerBaseTest {
 		return name;
 	    }
 	};
-	AccountDTO balance = AccountDTOBuilder.builder().ammount(ammount).build();
+	AccountDTO balance = AccountDTOBuilder.builder().amount(amount).build();
 	Mockito.when(accountService.getBalance(name)).thenReturn(balance);
 
 	mockMvc.perform(MockMvcRequestBuilders.get("/api/account/balance").principal(principal)).andDo(print())
@@ -69,7 +69,7 @@ public class AccountControllerTest extends MvcControllerBaseTest {
     @Test
     public void testGetStatement() throws Exception {
 
-	int ammount = 10000;
+	int amount = 10000;
 	int max = 5;
 	String name = "dummyName";
 
@@ -85,7 +85,7 @@ public class AccountControllerTest extends MvcControllerBaseTest {
 		.concept("Deposit " + i).date(new Date()).quantity(i).type(MovementType.DEPOSIT).build())
 		.collect(Collectors.toList());
 
-	AccountDTO account = AccountDTOBuilder.builder().ammount(ammount).movements(movements).build();
+	AccountDTO account = AccountDTOBuilder.builder().amount(amount).movements(movements).build();
 
 	Mockito.when(accountService.getStatement(name)).thenReturn(account);
 
@@ -97,7 +97,7 @@ public class AccountControllerTest extends MvcControllerBaseTest {
     @Test
     public void testDeposit() throws Exception {
 
-	int ammount = 10000;
+	int amount = 10000;
 	String name = "dummyName";
 	String concept = "New deposit";
 	int quantity = 500;
@@ -111,7 +111,7 @@ public class AccountControllerTest extends MvcControllerBaseTest {
 	};
 
 	// @formatter:off
-	AccountDTO balance = AccountDTOBuilder.builder().ammount(ammount).build();
+	AccountDTO balance = AccountDTOBuilder.builder().amount(amount).build();
 	MovementDTO movement = MovementDTOBuilder.builder()
 		.date(new Date())
 		.concept(concept)
@@ -224,7 +224,7 @@ public class AccountControllerTest extends MvcControllerBaseTest {
     @Test
     public void testWithDraw() throws Exception {
 
-	int ammount = 10000;
+	int amount = 10000;
 	String name = "dummyName";
 	String concept = "New WithDraw";
 	int quantity = 500;
@@ -238,7 +238,7 @@ public class AccountControllerTest extends MvcControllerBaseTest {
 	};
 
 	// @formatter:off
-	AccountDTO balance = AccountDTOBuilder.builder().ammount(ammount).build();
+	AccountDTO balance = AccountDTOBuilder.builder().amount(amount).build();
 	MovementDTO movement = MovementDTOBuilder.builder()
 		.date(new Date())
 		.concept(concept)
