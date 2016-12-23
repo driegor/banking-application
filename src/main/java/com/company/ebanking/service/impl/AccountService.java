@@ -1,5 +1,6 @@
 package com.company.ebanking.service.impl;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.company.ebanking.common.dto.account.AccountDTO;
@@ -15,6 +16,7 @@ import com.company.ebanking.mapper.MapConst;
 import com.company.ebanking.repository.IAccountRepository;
 import com.company.ebanking.service.IAccountService;
 
+@Service
 public class AccountService implements IAccountService {
 
     private static final String DOESNT_EXIST_USER_ACCOUNT_MESSAGE = "Doesn't exist an account for user %s";
@@ -39,6 +41,7 @@ public class AccountService implements IAccountService {
     }
 
     private AccountDTO getAccount(String userName, String mapId) throws AccountException {
+
 	Account account = accountRepository.findByUserUserName(userName);
 
 	if (account == null) {
@@ -71,9 +74,10 @@ public class AccountService implements IAccountService {
 	if (MovementType.WITHDRAW.equals(movement.getType()) && movement.getQuantity() > account.getAmount()) {
 	    throw new AccountException(String.format(NOT_ENOUGH_MONEY_MESSAGE, movement.getQuantity()));
 	}
-
+	movement.setAccount(account);
 	account.getMovements().add(movement);
-	return mapper.map(accountRepository.save(account), AccountDTO.class);
+	accountRepository.save(account);
+	return mapper.map(account, AccountDTO.class);
     }
 
 }

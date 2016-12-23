@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.company.ebanking.common.dto.response.error.ErrorMessageDTO;
 import com.company.ebanking.common.dto.response.error.ValidationErrorDTO;
+import com.company.ebanking.common.exception.AccountException;
 import com.company.ebanking.rest.controller.responses.Responses;
 
 public class RestErrorHandlerController {
@@ -30,6 +31,13 @@ public class RestErrorHandlerController {
 	String errorURL = req.getRequestURL().toString();
 	return Responses.internalError(
 		new ErrorMessageDTO(HttpStatus.INTERNAL_SERVER_ERROR, errorURL, userErrorMessage, ex.getMessage()));
+    }
+
+    @ExceptionHandler(AccountException.class)
+    public ResponseEntity<ErrorMessageDTO> businessException(HttpServletRequest req, Exception ex) {
+	String errorURL = req.getRequestURL().toString();
+	return Responses
+		.badRequest(new ErrorMessageDTO(HttpStatus.BAD_REQUEST, errorURL, userErrorMessage, ex.getMessage()));
     }
 
     @ExceptionHandler({ MethodArgumentNotValidException.class })

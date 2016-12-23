@@ -29,10 +29,10 @@ public class AccountRepositoryTest {
     private IAccountRepository repository;
 
     @Test
-    public void testGetAccountByUserName() {
+    public void testGetAccountByuserName() {
 	String userName = "userName";
-
-	User user = this.entityManager.persist(new User(userName, "123"));
+	this.entityManager.getEntityManager().persist(new User(userName, "123"));
+	User user = this.entityManager.find(User.class, userName);
 	this.entityManager.persist(new Account(user));
 	Account account = repository.findByUserUserName(userName);
 
@@ -48,7 +48,8 @@ public class AccountRepositoryTest {
     public void testDeposit() {
 	String userName = "userName";
 
-	User user = this.entityManager.persist(new User(userName, "123"));
+	this.entityManager.getEntityManager().persist(new User(userName, "123"));
+	User user = this.entityManager.find(User.class, userName);
 	this.entityManager.persist(new Account(user));
 	Account account = repository.findByUserUserName(userName);
 
@@ -81,7 +82,8 @@ public class AccountRepositoryTest {
     public void testNdeposits() {
 	String userName = "userName";
 
-	User user = this.entityManager.persist(new User(userName, "123"));
+	this.entityManager.getEntityManager().persist(new User(userName, "123"));
+	User user = this.entityManager.find(User.class, userName);
 	this.entityManager.persist(new Account(user));
 	Account account = repository.findByUserUserName(userName);
 
@@ -119,7 +121,8 @@ public class AccountRepositoryTest {
     public void testWithdraw() {
 	String userName = "userName";
 
-	User user = this.entityManager.persist(new User(userName, "123"));
+	this.entityManager.getEntityManager().persist(new User(userName, "123"));
+	User user = this.entityManager.find(User.class, userName);
 	int initialAmount = 10000;
 	this.entityManager.persist(new Account(user, initialAmount));
 	Account account = repository.findByUserUserName(userName);
@@ -153,7 +156,8 @@ public class AccountRepositoryTest {
     public void testNwithdraws() {
 	String userName = "userName";
 
-	User user = this.entityManager.persist(new User(userName, "123"));
+	this.entityManager.getEntityManager().persist(new User(userName, "123"));
+	User user = this.entityManager.find(User.class, userName);
 	int initialAmount = 10000;
 
 	this.entityManager.persist(new Account(user, initialAmount));
